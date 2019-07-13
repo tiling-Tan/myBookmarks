@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+<body>
+    <header></header>
+    <main>
+        <div class="wrapper" id="akeys"></div>
+    </main>
+    <footer></footer>
+    <script>
+        var keys = {
+            '0':{'0':'q','1':'w','2':'e','3':'r','4':'t','5':'y','6':'u','7':'i','8':'o','9':'p',length:10},
+            '1':{0:'a',1:'s',2:'d',3:'f',4:'g',5:'h',6:'j',7:'k',8:'l',length:9},
+            '2':{0:'z',1:'x',2:'c',3:'v',4:'b',5:'n',6:'m',length:7},
+            'length':3
+        }
+        var hash = {
+            'q':'qq.com',
+            'w':'weibo.com',
+            'e':'ele.me',
+            'r':'renren.com',
+            't':'taobao.com',
+            'y':'youtube.com',
+            'u':'uc.com',
+            'i':'iqiyi.com',
+            'o':'opera.com',
+            'p':undefined,
+            'a':'acfun.tv',
+            's':'soho.com',
+            'z':'zhihu.com',
+            'm':'www.mcdonalds.com.cn'
+        }
+        var hashInLocalStorage = JSON.parse(localStorage.getItem('zzz') || 'null');
+        if(hashInLocalStorage){
+            hash = hashInLocalStorage;
+        }
+        for(var index = 0;index < keys['length'];index++){
+            var div1 = document.createElement('div');
+            akeys.appendChild(div1);
+            for(var a = 0;a < keys[index].length;a++){
+                var k = document.createElement('kbd');
+                var value = keys[index];
+                k.textContent = value[a];
+                div1.appendChild(k);
+                var button = document.createElement('button');
+                button.textContent = 'Edit';
+                button.id = value[a];
+                button.onclick = function(sksks){
+                    var newHref = prompt('给我一个网址：');
+                    hash[sksks.target.id] = newHref;
+                    localStorage.setItem('zzz',JSON.stringify(hash));
+                }
+                k.appendChild(button);
+            }
+        }
+        document.onkeypress = function(xzkjcnxlkcjlk){
+            var key = xzkjcnxlkcjlk['key'];
+            var website = hash[key];
+            // location.href = 'http://'+website;
+            window.open('http://'+website,'_blank');
+        }
+    </script>
+</body>
+</html>
