@@ -43,18 +43,38 @@
         for(var index = 0;index < keys['length'];index++){
             var div1 = document.createElement('div');
             akeys.appendChild(div1);
+            div1.className = 'row';
             for(var a = 0;a < keys[index].length;a++){
                 var k = document.createElement('kbd');
+                k.className = 'key';
                 var value = keys[index];
-                k.textContent = value[a];
+                span = document.createElement('span');
+                span.className = 'text';
+                span.textContent = value[a];
+                k.appendChild(span);
                 div1.appendChild(k);
+                if(hash[value[a]]){
+                    img = document.createElement('img');
+                    img.src = 'http://' + hash[value[a]] + '/favicon.ico';
+                }else{
+                    img.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png';
+                }
+                img.onerror = function(error){
+                    error.target.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png';
+                }
+                k.appendChild(img);
                 var button = document.createElement('button');
                 button.textContent = 'Edit';
                 button.id = value[a];
                 button.onclick = function(sksks){
+                    img2 = sksks.target.previousSibling;
                     var newHref = prompt('给我一个网址：');
                     hash[sksks.target.id] = newHref;
                     localStorage.setItem('zzz',JSON.stringify(hash));
+                    img2.src = 'http://' + hash[sksks.target.id] + '/favicon.ico';
+                    img.onerror = function(error1){
+                    error1.target.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png';
+                }
                 }
                 k.appendChild(button);
             }
